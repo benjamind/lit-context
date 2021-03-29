@@ -39,7 +39,7 @@ export class ContextProvider<T extends keyof ContextTypeMap>
             return;
         }
         ev.stopPropagation();
-        this.addCallback(ev.callback);
+        this.addCallback(ev.callback, ev.once);
     };
     hostConnected(): void {
         this.host.addEventListener('context-request', this.onContextRequest);

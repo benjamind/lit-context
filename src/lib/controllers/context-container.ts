@@ -66,14 +66,16 @@ export class ContextContainer<T extends ContextTypeMap[keyof ContextTypeMap]> {
         );
     };
 
-    addCallback(callback: ContextCallback<T>): void {
-        const record: CallbackRecord<T> = [
-            callback,
-            () => {
-                this.callbacks.delete(record);
-            },
-        ];
-        this.callbacks.add(record);
+    addCallback(callback: ContextCallback<T>, once?: boolean): void {
+        if (!once) {
+            const record: CallbackRecord<T> = [
+                callback,
+                () => {
+                    this.callbacks.delete(record);
+                },
+            ];
+            this.callbacks.add(record);
+        }
         callback(this.value);
     }
     clearCallbacks(): void {
