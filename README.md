@@ -1,15 +1,58 @@
-# LitElement Starter Kit
+# LitContext
 
-### Starter kit result
+A prototype implement of Context API for lit-element.
 
-```showcase
-  <my-counter></my-counter>
+## What is Context API?
+
+The Context API is an agreed upon community protocol for web components to implement dependency injection.
+
+Elements emit an event when they require a dependency to be provided to them. This event is `composed` and `bubbling` so it travels up the DOM and any listener can catch the event and provide the requested value.
+
+The `context-request` event is defined as:
+
+```typescript
+interface ContextEvent extends Event {
+    /**
+     * The name of the context that is requested
+     */
+    readonly name: T;
+    /**
+     * A boolean indicating if the context should only be provided once.
+     */
+    readonly once: boolean;
+    /**
+     * A callback which a provider of this named callback should invoke.
+     */
+    readonly callback: ContextCallback<ContextTypeMap[T]>;
+}
 ```
 
-### Links
+The callback is defined as follows:
 
-- [Official website (lit-element.polymer-project.org/)](https://lit-element.polymer-project.org/)
-- [Guide](https://lit-element.polymer-project.org/guide)
-- [Chat](https://join.slack.com/t/polymer/shared_invite/enQtNTAzNzg3NjU4ODM4LTkzZGVlOGIxMmNiMjMzZDM1YzYyMzdiYTk0YjQyOWZhZTMwN2RlNjM5ZDFmZjMxZWRjMWViMDA1MjNiYWFhZWM)
-- [GitHub](https://github.com/Polymer/lit-element)
-- [Issues](https://github.com/Polymer/lit-element/issues)
+```typescript
+/**
+ * A map context type strings to context value types.
+ */
+export interface ContextTypeMap {}
+
+declare global {
+    interface HTMLElementEventMap {
+        /**
+         * A 'context-request' event can be emitted by any element which desires
+         * a context value to be injected by an external provider.
+         */
+        'context-request': ContextEvent<keyof ContextTypeMap>;
+    }
+}
+
+/**
+ * A callback which is provided by a context requester and is called with the
+ * value satisfying the request.
+ *
+ * This callback can be called multiple times by context providers as the
+ * requested value is changed.
+ */
+export type ContextCallback<
+    ValueType extends ContextTypeMap[keyof ContextTypeMap]
+> = (value: ValueType, dispose?: () => void) => void;
+```

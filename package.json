@@ -19,7 +19,8 @@
         "/lit-context.js.map"
     ],
     "scripts": {
-        "build": "tsc --build tsconfig.json && tsc --build demo/tsconfig.json",
+        "build:demo": "tsc --build demo/tsconfig.json",
+        "build": "tsc --build tsconfig.json && npm run build:demo",
         "build:watch": "tsc --build tsconfig.json -w & tsc --build demo/tsconfig.json -w",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
         "lint": "eslint -f pretty 'src/**/*.ts'",

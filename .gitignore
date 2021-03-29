@@ -4,7 +4,7 @@ coverage
 #Compiler Output
 *.tsbuildinfo
 *.log
-lib
+/lib
 
 test/**/*.js
 test/**/*.js.map
