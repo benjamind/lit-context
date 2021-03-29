@@ -6,7 +6,7 @@ NOTE: This library is being developed at Adobe, this is a temporary repository t
 
 ## Context API Introduction
 
-The Context API is an agreed upon community protocol for web components to implement dependency injection.
+The Context API is an community protocol [currently in open discussion](https://github.com/webcomponents/community-protocols/issues/2) for web components to implement dependency injection behaviors similar to React's Context API.
 
 Elements emit an event when they require a dependency to be provided to them. This event is `composed` and `bubbling` so it travels up the DOM and any listener can catch the event and provide the requested value.
 
