@@ -1,0 +1,27 @@
+/node_modules/
+
+coverage
+#Compiler Output
+*.tsbuildinfo
+*.log
+lib
+
+test/**/*.js
+test/**/*.js.map
+test/**/*.d.ts
+test/**/*.d.ts.map
+
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+src/**/*.d.ts.map
+
+lit-context.js
+lit-context.js.map
+lit-context.d.ts
+lit-context.d.ts.map
+
+demo/**/*.js
+demo/**/*.js.map
+
+.DS_Store
