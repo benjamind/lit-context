@@ -1,6 +1,8 @@
 # LitContext
 
-A prototype implement of Context API for lit-element.
+A prototype implementation of Context API for lit-element. The context API is not yet finalized, this is just for initial discussion.
+
+NOTE: This library is being developed at Adobe, this is a temporary repository that will be moved into the public Adobe organization later once we commit to maintaining this implementation.
 
 ## What is Context API?
 
