@@ -10,8 +10,8 @@ governing permissions and limitations under the License.
 */
 
 import { customElement, LitElement, property } from 'lit-element';
-import { LitControllerHost, ContextProvider } from '../lit-context';
-import { ContextTypeMap } from './context-event';
+import { LitControllerHost, ContextProvider } from '../../lit-context.js';
+import { ContextTypeMap } from '../context-event.js';
 
 declare global {
     interface HTMLElementTagNameMap {
