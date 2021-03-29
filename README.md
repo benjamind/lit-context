@@ -108,3 +108,38 @@ this.dispatchEvent(
     })
 );
 ```
+
+It is recommended that custom elements which participate in the context API should fire their `context-request` events in their `connectedCallback` handler. Likewise in their `disconnectedCallback` they should invoke any `dispose` functions they have received.
+
+A complete example is as follows:
+
+```javascript
+class SimpleElement extends HTMLElement {
+    connectedCallback() {
+        this.dispatchEvent(
+            new CustomEvent('context-request', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    name: 'logger',
+                    callback: (value, dispose) => {
+                        // protect against changing providers
+                        if (dispose && dispose !== this.loggerDisposer) {
+                            this.dispose();
+                        }
+                        this.logger = value;
+                        this.loggerDisposer = dispose;
+                    },
+                },
+            })
+        );
+    }
+    disconnectedCallback() {
+        if (this.loggerDisposer) {
+            this.loggerDisposer();
+        }
+        this.loggerDisposer = undefined;
+        this.logger = undefined;
+    }
+}
+```

@@ -10,28 +10,36 @@ import { ReactiveController, ReactiveElement } from './controller-host.js';
  * disconnected.
  */
 export class ContextController<
-  T extends keyof ContextTypeMap,
-  HostElement extends ReactiveElement
+    T extends keyof ContextTypeMap,
+    HostElement extends ReactiveElement
 > implements ReactiveController {
-  constructor(
-    protected host: HostElement,
-    private callback: (value: ContextTypeMap[T], dispose?: () => void) => void,
-    private name: T
-  ) {}
+    constructor(
+        protected host: HostElement,
+        private callback: (
+            value: ContextTypeMap[T],
+            dispose?: () => void
+        ) => void,
+        private name: T
+    ) {}
 
-  private dispose?: () => void;
+    private dispose?: () => void;
 
-  hostConnected(): void {
-    this.host.dispatchEvent(
-      new ContextEvent(this.name, (value, dispose) => {
-        this.callback(value, dispose);
-        this.dispose = dispose;
-      })
-    );
-  }
-  hostDisconnected(): void {
-    if (this.dispose) {
-      this.dispose();
+    hostConnected(): void {
+        this.host.dispatchEvent(
+            new ContextEvent(this.name, (value, dispose) => {
+                if (this.dispose && this.dispose !== dispose) {
+                    // we already have a value, lets cleanup before we take the new one
+                    this.dispose();
+                }
+                this.callback(value, dispose);
+                this.dispose = dispose;
+            })
+        );
     }
-  }
+    hostDisconnected(): void {
+        if (this.dispose) {
+            this.dispose();
+            this.dispose = undefined;
+        }
+    }
 }
