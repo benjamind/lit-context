@@ -57,7 +57,7 @@ export class AsyncProviderDemo extends LitControllerHost(LitElement) {
     }
 
     private loadImage(): void {
-        // don't do this, just use a src tag, but as an example....
+        // don't do this, just use an image tag, but as an example....
         fetch('https://picsum.photos/200/300')
             .then((response) => response.blob())
             .then((myBlob) => {
