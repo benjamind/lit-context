@@ -50,7 +50,7 @@
         "eslint-formatter-pretty": "^4.0.0",
         "eslint-plugin-notice": "^0.9.10",
         "eslint-plugin-prettier": "^3.3.1",
-        "husky": "^4.3.8",
+        "husky": "^8.0.1",
         "lit-element": "^2.0.0",
         "prettier": "^2.2.1",
         "pretty-quick": "^3.0.0",
